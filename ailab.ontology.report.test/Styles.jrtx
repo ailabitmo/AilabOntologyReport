@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperTemplate PUBLIC "-//JasperReports//DTD Template//EN" "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
+
+<jasperTemplate>
+	<style name="Row" fontSize="10">
+		<pen lineWidth="0.25" lineColor="#2E74B5"/>
+		<box padding="2">
+			<topPen lineWidth="0.2" lineStyle="Solid" lineColor="#2E74B5"/>
+			<leftPen lineWidth="0.2" lineStyle="Solid" lineColor="#2E74B5"/>
+			<bottomPen lineWidth="0.2" lineStyle="Solid" lineColor="#2E74B5"/>
+			<rightPen lineWidth="0.2" lineStyle="Solid" lineColor="#2E74B5"/>
+		</box>
+	</style>
+	<style name="RowHeader" style="Row" isBold="true">
+		<box>
+			<topPen lineWidth="0.25" lineColor="#2E74B5"/>
+			<leftPen lineWidth="0.25" lineColor="#2E74B5"/>
+			<bottomPen lineWidth="1.5" lineColor="#2E74B5"/>
+			<rightPen lineWidth="0.25" lineColor="#2E74B5"/>
+		</box>
+	</style>
+	<style name="H1" forecolor="#2E74B5" fontName="SansSerif" fontSize="18"/>
+	<style name="H2" forecolor="#5B9BD5" fontName="SansSerif" fontSize="16"/>
+	<style name="H3" forecolor="#5B9BD5" fontName="SansSerif" fontSize="13"/>
+	<style name="H4" forecolor="#5B9BD5" fontName="SansSerif" fontSize="11"/>
+	<style name="H5" forecolor="#5B9BD5" fontName="SansSerif" fontSize="10"/>
+</jasperTemplate>

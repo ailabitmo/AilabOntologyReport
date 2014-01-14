@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="ailab.ontology.reporting:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ailab_ontology_reporting_jar</output-path>
+    <root id="root">
+      <element id="archive" name="ailab.ontology.reporting.jar">
+        <element id="module-output" name="ailab.ontology.report.core" />
+      </element>
+      <element id="library" level="project" name="org.apache.jena:jena-arq:2.11.0" />
+    </root>
+  </artifact>
+</component>

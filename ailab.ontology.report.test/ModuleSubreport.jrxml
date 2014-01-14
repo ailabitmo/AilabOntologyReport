@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LiteratureSubreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="414bd0f1-5f57-4d47-bace-3fdcbbd93115">
+	<template><![CDATA["Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="module" class="java.lang.String"/>
+	<field name="moduleName" class="java.lang.String"/>
+	<field name="moduleOrder" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="H2" stretchType="RelativeToBandHeight" x="-1" y="10" width="194" height="30" uuid="81308701-4db0-4bc5-bae8-2e70ea2d5e82">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Модули]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="66" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement style="H3" x="0" y="0" width="500" height="30" uuid="385acddd-ca3a-4d8c-8707-4ebaf2eaf690"/>
+				<textFieldExpression><![CDATA["Модуль \"" + $F{moduleName} + "\""]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="0" y="30" width="555" height="30" uuid="9079a58e-87ce-47a6-a646-574351e5e77c"/>
+				<dataSourceExpression><![CDATA[((ru.ifmo.ailab.jaspersparql.SparqlJenaDataSource) $P{REPORT_DATA_SOURCE}).SubreportDataSource(
+	"PREFIX learningRu: <http://www.semanticweb.org/k0shk/ontologies/2013/5/learning#> \n" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                "PREFIX aiiso: <http://purl.org/vocab/aiiso/schema#>\n" +
+	"SELECT ?lecture ?lectureName (GROUP_CONCAT(?termLabel; separator=\", \") as ?terms) " +
+                " WHERE { \n" +
+                "?module a aiiso:Module;\n" +
+                "{ ?module learningRu:hasLecture ?lecture } UNION { ?lecture learningRu:isLectureOf ?module } . \n" +
+                "?lecture learningRu:numberOfLecture ?number; \n" +
+                "# learningRu:previousLecture ?prevlecture ;\n" +
+                " rdfs:label ?lectureName.\n" +
+                "#?prevlecture rdfs:label ?prevlectureName.\n" +
+                "?term learningRu:isTermOf ?lecture;\n" +
+                "      rdfs:label ?termLabel.\n" +
+                "FILTER(?module = <" + $F{module} + "> &&\n" +
+                "      (langMatches(lang(?lectureName), \"ru\") || LANG(?lectureName) = \"\") &&\n" +
+                "      (langMatches(lang(?termLabel), \"ru\") || LANG(?termLabel) = \"\") \n" +
+                ")}\n" +
+                "group by ?lecture ?lectureName\n" +
+                " ORDER BY ?number ?termLabel"
+)]]></dataSourceExpression>
+				<subreportExpression><![CDATA["LectureSubreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

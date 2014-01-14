@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LiteratureSubreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="414bd0f1-5f57-4d47-bace-3fdcbbd93115">
+	<template><![CDATA["Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="termName" class="java.lang.String"/>
+	<field name="lectures" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="42" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="H2" stretchType="RelativeToBandHeight" x="0" y="10" width="194" height="30" uuid="81308701-4db0-4bc5-bae8-2e70ea2d5e82"/>
+				<text><![CDATA[Термины]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement style="RowHeader" x="0" y="0" width="278" height="20" uuid="275d83bb-e0ac-47c5-907d-72419926cfe9"/>
+				<text><![CDATA[Термин]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="RowHeader" x="278" y="0" width="277" height="20" uuid="5b1f8853-e642-44a9-aca7-b0c1976d0ff0"/>
+				<text><![CDATA[Лекции]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Row" stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="278" height="20" isRemoveLineWhenBlank="true" uuid="73201087-7089-41b1-a4c6-4ee0d07acc71"/>
+				<textFieldExpression><![CDATA[$F{termName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Row" stretchType="RelativeToBandHeight" x="278" y="0" width="277" height="20" isRemoveLineWhenBlank="true" uuid="049fe35b-0af0-4959-a70f-bf1d9b8133d8"/>
+				<textFieldExpression><![CDATA[$F{lectures}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
