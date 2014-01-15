@@ -36,6 +36,7 @@ public class SparqlJenaDataSourceProvider implements JRDataSourceProvider {
     public boolean supportsGetFieldsOperation() {
         return true;
     }
+
     @Override
     public JRField[] getFields(JasperReport report) throws JRException, UnsupportedOperationException {
         JRQuery query = report.getQuery();

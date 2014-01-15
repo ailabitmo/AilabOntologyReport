@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CourseReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f09adf03-5d69-44c5-9649-374a118359ca">
+	<template><![CDATA["Styles.jrtx"]]></template>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="course" class="java.lang.String"/>
+	<field name="courseName" class="java.lang.String"/>
+	<field name="moduleCount" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="200" height="40" uuid="a505e0fd-58bb-421b-9d84-2bc2b9f5eae4"/>
+				<textElement>
+					<font fontName="SansSerif" size="28"/>
+				</textElement>
+				<text><![CDATA[Отчет по курсу]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="45" width="555" height="1" uuid="39a0627b-2e60-48d7-8f41-bf9acc30f5e5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement style="H1" x="0" y="0" width="420" height="30" uuid="90aecadc-0ea0-45c2-94a6-ea8cec037030"/>
+				<textFieldExpression><![CDATA[$F{courseName}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="36" width="554" height="20" isRemoveLineWhenBlank="true" uuid="9adcaccf-69db-437f-99d8-e1b62f3941f7"/>
+				<dataSourceExpression><![CDATA[((ru.ifmo.ailab.jaspersparql.SparqlJenaDataSource) $P{REPORT_DATA_SOURCE}).SubreportDataSource(
+	"PREFIX learningRu: <http://www.semanticweb.org/k0shk/ontologies/2013/5/learning#> \n" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                "SELECT DISTINCT ?ResourceName ?ResourceLink\n" +
+                " WHERE { <" + $F{course} + "> learningRu:hasResource ?ResourceLink .\n" +
+                " ?ResourceLink rdfs:label ?ResourceName .}" + 
+                " ORDER BY ASC(?ResourceName)"
+)]]></dataSourceExpression>
+				<subreportExpression><![CDATA["LiteratureSubreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="21" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="21" isRemoveLineWhenBlank="true" uuid="43cb49f1-8df0-46a1-ba6c-4e55542332db"/>
+				<dataSourceExpression><![CDATA[((ru.ifmo.ailab.jaspersparql.SparqlJenaDataSource) $P{REPORT_DATA_SOURCE}).SubreportDataSource(
+	"PREFIX learningRu: <http://www.semanticweb.org/k0shk/ontologies/2013/5/learning#> \n" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+	"SELECT DISTINCT ?module ?moduleName ?moduleOrder\n" +
+                " WHERE { \n" +
+                "   {  <" + $F{course} + "> learningRu:hasModule ?module } \n" +
+                "   UNION { ?module learningRu:isModuleOf  <" + $F{course} + "> } . \n" +
+                "   ?module rdfs:label ?moduleName .   \n" +
+                "   ?module learningRu:numberOfModule ?moduleOrder \n" +
+                "   FILTER (langMatches(lang(?moduleName), \"ru\") || LANG(?moduleName) = \"\") }\n" +
+                " ORDER BY ASC(?moduleOrder)"
+)]]></dataSourceExpression>
+				<subreportExpression><![CDATA["ModuleSubreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="21">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="21" isRemoveLineWhenBlank="true" uuid="1ce1fd4f-b1f6-4be6-bcaf-b58652285bc2"/>
+				<dataSourceExpression><![CDATA[((ru.ifmo.ailab.jaspersparql.SparqlJenaDataSource) $P{REPORT_DATA_SOURCE}).SubreportDataSource(
+	"PREFIX learningRu: <http://www.semanticweb.org/k0shk/ontologies/2013/5/learning#> \n" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+                "PREFIX aiiso: <http://purl.org/vocab/aiiso/schema#>\n" +
+	"SELECT ?term ?termName (GROUP_CONCAT(?lectureName; separator=\", \") as ?lectures) " +
+                " WHERE { \n" +
+                "{?course learningRu:hasModule ?module} UNION {?module learningRu:isModuleOf ?course}\n" +
+                "{?module learningRu:hasLecture ?lecture } UNION { ?lecture learningRu:isLectureOf ?module } . \n" +
+                "{?term learningRu:isTermOf ?lecture } UNION  { ?lecture learningRu:hasTerm ?term}\n" +
+                "?lecture rdfs:label ?lectureName.\n" +
+                "?term rdfs:label ?termName.\n" +
+                "FILTER(?course = <" + $F{course} + "> &&\n" +
+                "(langMatches(lang(?lectureName), \"ru\") || LANG(?lectureName) = \"\") &&\n" +
+                "      (langMatches(lang(?termName), \"ru\") || LANG(?termName) = \"\")" +                
+                ")}\n" +
+                "group by ?term ?termName\n" + 
+                "having bound(?term)"
+)]]></dataSourceExpression>
+				<subreportExpression><![CDATA["TermSubreport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33">
+			<textField>
+				<reportElement x="415" y="14" width="70" height="18" uuid="c82b24ad-b7d4-41e1-a910-fb4218ef586e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Страница " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="485" y="14" width="70" height="18" uuid="bf6ebb62-0313-4d62-abac-ebcb83403797"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" из " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="14" width="399" height="18" uuid="12e36e06-57f6-46f5-9c30-40a31e4b79f8"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA["Отчет по курсу \"" + $F{courseName} + "\""]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="10" width="555" height="1" uuid="46956782-dc50-439d-bd49-9c0faf98c921">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="local_mesure_unitx" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -50,6 +50,7 @@ public class SparqlJenaDataSource implements JRDataSource, JRRewindableDataSourc
     }
 
     private volatile int nextLaunches = 0;
+
     @Override
     public boolean next() throws JRException {
         nextLaunches++;

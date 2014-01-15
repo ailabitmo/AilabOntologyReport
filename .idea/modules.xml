@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ailab.ontology.report.core/ailab.ontology.report.core.iml" filepath="$PROJECT_DIR$/ailab.ontology.report.core/ailab.ontology.report.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/ailab.ontology.report.test/ailab.ontology.report.test.iml" filepath="$PROJECT_DIR$/ailab.ontology.report.test/ailab.ontology.report.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ailab.ontology.report.web/ailab.ontology.report.web.iml" filepath="$PROJECT_DIR$/ailab.ontology.report.web/ailab.ontology.report.web.iml" />
     </modules>
   </component>
 </project>

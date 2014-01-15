@@ -1,6 +1,9 @@
 package ru.ifmo.ailab.jaspersparql;
 
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 import java.util.HashMap;
@@ -10,7 +13,7 @@ import java.util.Map;
  * Created by yuemelyanov on 04.01.14.
  */
 public class ReportTest {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         try {
             LinkedLearningCourseReport();
 //            testDatasourceProvider();
@@ -103,7 +106,7 @@ public class ReportTest {
                 "}\n" +
                 "group by ?lection ?lectionName\n" +
                 " ORDER BY ASC(?number)";
-        String termsQuery = commonPrefix +"SELECT ?term ?termName (GROUP_CONCAT(?lectureName; separator=\", \") as ?lectures) \n" +
+        String termsQuery = commonPrefix + "SELECT ?term ?termName (GROUP_CONCAT(?lectureName; separator=\", \") as ?lectures) \n" +
                 " WHERE { \n" +
                 "{?course learningRu:hasModule ?module} UNION {?module learningRu:isModuleOf ?course}\n" +
                 "{?module learningRu:hasLecture ?lecture } UNION { ?lecture learningRu:isLectureOf ?module } . \n" +
@@ -114,7 +117,7 @@ public class ReportTest {
                 "(langMatches(lang(?lectureName), \"ru\") || LANG(?lectureName) = \"\") &&\n" +
                 "      (langMatches(lang(?termLabel), \"ru\") || LANG(?termLabel) = \"\")" +
                 ")}\n" +
-                "group by ?term ?termName\n"+
+                "group by ?term ?termName\n" +
                 "having bound(?term)";
 
         SparqlJenaDataSource ds = new SparqlJenaDataSource(sparqlEndpoint, courseQuery);

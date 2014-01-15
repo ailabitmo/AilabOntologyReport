@@ -23,8 +23,6 @@
       <root url="jar://$PROJECT_DIR$/lib/jackson-annotations-2.1.4.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="file://$PROJECT_DIR$/../jasper5.5/src" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
